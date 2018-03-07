@@ -34,20 +34,28 @@ class ItemController extends Controller
         'price' => $request->input('price'),
         'stock' => $request->input('stock')
       ]);
-
-      return response('OK', 200);
+      if($task==0){
+        return response(['message' => 'FAIL'], 400);
+      }
+      else{
+        return response(['message' => 'OK'], 200);
+      }
     }catch(Exception $error){
-      return response('FAIL',400);
+      return response(['message' => 'FAIL'],500);
     }
   }
 
   public function delete(Request $request){
     try{
       $task = Item::where('id','=',$request->input('id'))->delete();
-
-      return response('OK',200);
+      if($task==0){
+        return response(['message' => 'FAIL'], 400);
+      }
+      else{
+        return response(['message' => 'OK'], 200);
+      }
     }catch(Exception $error){
-      return response('FAIL',400);
+      return response('FAIL',500);
     }
   }
 
@@ -59,10 +67,14 @@ class ItemController extends Controller
                                                                   'price' => $request->input('price'),
                                                                   'stock' => $request->input('stock')
       ]);
-
-      return response('OK',200);
+      if($task==0){
+        return response(['message' => 'FAIL'], 400);
+      }
+      else{
+        return response(['message' => 'OK'], 200);
+      }
     }catch(Exception $error){
-      return response('FAIL',400);
+      return response(['message' => 'FAIL'],500);
     }
   }
 }

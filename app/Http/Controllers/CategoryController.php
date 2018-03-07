@@ -30,34 +30,45 @@ class CategoryController extends Controller
     public function insert(Request $request)
     {
       try{
-        $id = Category::insertGetId([
+        $task = Category::insertGetId([
           'name' => $request->input('name')]);
-
-        return response('OK', 200);
+        if($task==0){
+          return response(['message' => 'FAIL'], 400);
+        }
+        else{
+          return response(['message' => 'OK'], 200);
+        }
       }catch(Exception $error){
-        return response('FAIL',400);
+        return response('FAIL',500);
       }
     }
 
     public function delete(Request $request){
       try{
         $task = Category::where('id','=',$request->input('id'))->delete();
-
-        return response('OK',200);
+        if($task==0){
+          return response(['message' => 'FAIL'], 400);
+        }
+        else{
+          return response(['message' => 'OK'], 200);
+        }
       }catch(Exception $error){
-        return response('FAIL',400);
+        return response('FAIL',500);
       }
-
     }
 
     public function update(Request $request)
     {
       try{
         $task = Category::where('id','=',$request->input('id'))->update(['name' => $request->input('name')]);
-
-        return response('OK',200);
+        if($task==0){
+          return response(['message' => 'FAIL'], 400);
+        }
+        else{
+          return response(['message' => 'OK'], 200);
+        }
       }catch(Exception $error){
-        return response('FAIL',400);
+        return response(['message' => 'FAIL'], 500);
       }
     }
 }
